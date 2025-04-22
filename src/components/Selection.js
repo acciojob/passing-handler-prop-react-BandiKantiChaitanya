@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/Child.css';
 
 function Selection({ applyColor }) {
   const [bgColor, setBgColor] = useState('');
-  const [testId, setTestId] = useState('');
 
   const getTestId = (color) => {
     const normalized = color.replace(/\s/g, '');
@@ -17,18 +16,18 @@ function Selection({ applyColor }) {
 
   const handleClick = () => {
     applyColor((newColor) => {
-      const color = newColor.background;
-      setBgColor(color);
-      setTestId(getTestId(color)); // set testId directly
+      setBgColor(newColor.background);
     });
   };
+
+  const testId = getTestId(bgColor);
 
   return (
     <div
       className="fix-box"
       style={{ backgroundColor: bgColor }}
       onClick={handleClick}
-      data-testid={testId} // Cypress will look for this!
+      data-testid={testId}
     >
       Selection
     </div>
