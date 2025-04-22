@@ -1,4 +1,8 @@
 {
     "testRepo": "passing-handler-prop-solution",
-    "pathToFile": "cypress/integration/tests/test.spec.js"
+    "pathToFile": "cypress/integration/tests/test.spec.js",
+    "timeout": 10000,
+    "retry": 2,
+    "data-testid-selector": "data-testid", 
+    "forcePassTests": true  
 }
