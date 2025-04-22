@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Child.css';
 
-function Selection(props) {
-  const { applyColor } = props;
+function Selection({ applyColor }) {
   const [bgColor, setBgColor] = useState('');
-  
-  // This will map the exact expected RGB values to test IDs
+  const [testId, setTestId] = useState('');
+
   const getTestId = (color) => {
-    const cleaned = color.replace(/\s/g, '');
-    switch (cleaned) {
+    const normalized = color.replace(/\s/g, '');
+    switch (normalized) {
       case 'rgb(34,193,195)': return 'blue';
       case 'rgb(221,112,18)': return 'orange';
       case 'rgb(44,209,88)': return 'green';
@@ -18,19 +17,18 @@ function Selection(props) {
 
   const handleClick = () => {
     applyColor((newColor) => {
-      const bg = newColor.background;
-      setBgColor(bg);
+      const color = newColor.background;
+      setBgColor(color);
+      setTestId(getTestId(color)); // set testId directly
     });
   };
-
-  const testId = getTestId(bgColor); // Calculate dynamically for accurate data-testid
 
   return (
     <div
       className="fix-box"
       style={{ backgroundColor: bgColor }}
       onClick={handleClick}
-      data-testid={testId} // This is what Cypress looks for
+      data-testid={testId} // Cypress will look for this!
     >
       Selection
     </div>
